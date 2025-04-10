@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="ja">
-	<head>
-		<meta charset="utf-8">
-		<title>シャンクスを殴ろう</title>
-		<meta name="description" content="サイトキャプションを入力">
-		<meta name="keywords" content="サイトキーワードを,で区切って入力">
-		<link rel="stylesheet" href="test.css">
-	</head>
-	<body>
-		  <!-- 画像表示エリア -->
-          <img id="image" src="rpunch.gif" alt="画像">
+<head>
+  <meta charset="utf-8">
+  <title>シャンクスを殴ろう</title>
+  <meta name="description" content="サイトキャプションを入力">
+  <meta name="keywords" content="サイトキーワードを,で区切って入力">
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+  <!-- 画像表示エリア -->
+  <img id="image" src="rpunch.gif" alt="画像" onload="playOnce(this)">
 
-          <!-- 画像切り替えボタン -->
-          <button id="switchButton">パンチ!!!</button>
-        
-          <script>
-            // 画像要素とボタン要素を取得
-            const imageElement = document.getElementById('image');
-            const switchButton = document.getElementById('switchButton');
-        
-            // 切り替える画像のパス（例として3枚の画像）
-            const images = ["rpunch.gif", "lpunch.gif"];
-            let currentIndex = 0;
-        
-            // ボタンをクリックすると実行される処理
-            switchButton.addEventListener('click', function() {
-              // インデックスを更新（最後の画像の後は最初の画像に戻る）
-              currentIndex = (currentIndex + 1) % images.length;
-              // 画像のsrc属性を切り替える
-              imageElement.src = images[currentIndex];
-            });
-          </script>
+  <!-- 画像切り替えボタン -->
+  <button id="switchButton">パンチ!!!</button>
+  
+  <script>
+    // 画像要素とボタン要素を取得
+    const imageElement = document.getElementById('image');
+    const switchButton = document.getElementById('switchButton');
+  
+    // 切り替える画像のパス（例として2枚の画像）
+    const images = ["rpunch.gif", "lpunch.gif"];
+    let currentIndex = 0;
+  
+    // ボタンをクリックすると実行される処理
+    switchButton.addEventListener('click', function() {
+      // インデックスを更新（最後の画像の後は最初の画像に戻る）
+      currentIndex = (currentIndex + 1) % images.length;
+      // 画像のsrc属性を切り替える
+      imageElement.src = images[currentIndex];
+      // 画像を再ロードして再生をリセット
+      imageElement.onload = function() {
+        playOnce(imageElement);
+      };
+    });
 
-    </body>
+    // GIFを一度だけ再生する関数
+    function playOnce(image) {
+      // 画像のsrcを一時的に変更して元のGIFを再ロードする
+      const currentSrc = image.src;
+      image.src = ''; // 一旦srcを空にする
+      image.src = currentSrc; // 再びsrcをセットして再生
+    }
+  </script>
+</body>
 </html>
