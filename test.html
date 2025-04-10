@@ -8,7 +8,29 @@
 		<link rel="stylesheet" href="sample.css">
 	</head>
 	<body>
-		
+		  <!-- 画像表示エリア -->
+          <img id="image" src="image1.jpg" alt="画像">
+
+          <!-- 画像切り替えボタン -->
+          <button id="switchButton">画像を切り替える</button>
+        
+          <script>
+            // 画像要素とボタン要素を取得
+            const imageElement = document.getElementById('image');
+            const switchButton = document.getElementById('switchButton');
+        
+            // 切り替える画像のパス（例として3枚の画像）
+            const images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+            let currentIndex = 0;
+        
+            // ボタンをクリックすると実行される処理
+            switchButton.addEventListener('click', function() {
+              // インデックスを更新（最後の画像の後は最初の画像に戻る）
+              currentIndex = (currentIndex + 1) % images.length;
+              // 画像のsrc属性を切り替える
+              imageElement.src = images[currentIndex];
+            });
+          </script>
 
     </body>
 </html>
